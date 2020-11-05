@@ -1,6 +1,6 @@
 {
   "name": "lastly",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Lightweight, no-dependency Node.js library sending a final error via POST to an absolute url.",
   "main": "index.js",
   "scripts": {

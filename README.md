@@ -11,16 +11,37 @@ If you are sending to a Slack incoming webhook then setup is very simple. You ca
 
 ## Basic setup
 Lastly has only one required parameter, an absolute URI. It can optionally take a second parameter, a callback function, that will return the error that lastly processed.
+
 ```js
 const lastly = require('lastly')
 lastly('https://hooks.slack.com/services/XXXXX/XXXXX/xxxxxxxxxx');
 ```
 
 ## Setup with callback
+
 ```js
 const lastly = require('lastly')
 lastly('https://hooks.slack.com/services/XXXXX/XXXXX/xxxxxxxxxx', (err) => {
   // Handle err
   console.error(err);
 });
+```
+
+## Setup for use with Express
+If you are using the [Express library](https://www.npmjs.com/package/express) you may want to handle errors that are caught by Express. To do this you'll use the error handler that lastly creates during setup and use it as middleware **<ins>after</ins>** all of your routes have been declared.
+
+```js
+const lastly = require('lastly');
+const express = require('express');
+const PORT = process.env.PORT || 8081;
+
+const errorHandler = lastly('https://hooks.slack.com/services/XXXXX/XXXXX/xxxxxxxxxx');
+
+app.get('/', (_req, res) => {
+  res.send('Lastly is awesome!');
+});
+
+app.use(errorHandler);
+
+app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
 ```

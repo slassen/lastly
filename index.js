@@ -40,7 +40,11 @@ const formatMessage = (error) => {
   });
 };
 
-process.on('uncaughtException', error => {
+const handleError = (error, _req, _res, next) => {
+  if (!error && next) { // support express library
+    return next();
+  }
+
   if (!config.initialized) {
     return console.error('Lastly is not sending error because config was not properly initialized.');
   }
@@ -68,22 +72,19 @@ process.on('uncaughtException', error => {
     }, (response) => {
       console.log(`Lastly sent an error to ${url} and recieved status code: ${response.statusCode}`);
       if (callback) callback(error);
-      process.exit(1);
     });
 
     request.on('error', error => {
       console.error(`Lastly encountered an error sending to ${url}.`);
       console.error(error);
-      process.exit(1);
     });
 
     request.write(message);
     request.end();
-  } catch(err) {
+  } catch (err) {
     console.error('Lastly failed to send error.', err);
-    process.exit(1);
   }
-});
+}
 
 module.exports = (url, callback = null) => {
   try {
@@ -113,7 +114,11 @@ module.exports = (url, callback = null) => {
       config.initialized = true;
       config.url = url;
       config.callback = callback;
+      process.on('uncaughtException', handleError);
+      return handleError;
     }
+
+    return null;
   } catch (err) {
     console.error('Lastly encountered an error initializing.');
   }
