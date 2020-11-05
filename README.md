@@ -3,7 +3,7 @@ lastly is a lightweight, no-dependency Node.js library sending a final error via
 
 ## How it works
 <!-- - Run `npm i -s lastly` in your project -->
-When your program encounters an uncaught exception lastly takes over. Lastly follows the same rules for error handling as `process.on('uncaughtException', error => {})` so it will only runtime errors. If you had an error in your syntax, for example, then you'll need to fix your code the hard way! Currently, lastly will only send a POST request formatted like a Slack message. It is important to mention that if you currently have the aforementioned `uncaughtException` process event set up you will need to wrap that inside of lastly's `callback` function.
+When your program encounters an uncaught exception lastly takes over. Lastly follows the same rules for error handling as `process.on('uncaughtException', error => {})` so it will only handle runtime errors. If you had an error in your syntax, for example, then you'll need to fix your code the hard way! Currently, lastly will only send a POST request formatted like a Slack message. It is important to mention that if you currently have the aforementioned `uncaughtException` process event set up you will need to wrap that inside of lastly's `callback` function.
 
 If you are sending to a Slack incoming webhook then setup is very simple. You can provide an optional callback if you want to do something with the error after lastly processes it.
 

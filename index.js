@@ -1,13 +1,42 @@
 const http = require('http');
 const https = require('https');
+const path = require('path');
 
 const config = {
   initialized: false,
 };
 
 const formatMessage = (error) => {
+  const dir = process.cwd();
+  const json = require(path.resolve(path.join(dir, '/package.json')));
+
+  const header = [
+    'Lastly encountered an error.',
+    `\n\t\t*dir*: ${dir}`,
+    `\n\t\t*name*: ${json.name || null}`,
+    `\n\t\t*ver*: ${json.version || null}`,
+  ];
+
   return JSON.stringify({
-    "text": "Lastly encountered an error."
+    blocks: [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: header.join(''),
+        }
+      },
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: error.stack,
+        }
+      },
+      {
+        type: 'divider'
+      }
+    ]
   });
 };
 
