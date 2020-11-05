@@ -1,0 +1,30 @@
+{
+  "name": "lastly",
+  "version": "1.0.0",
+  "description": "Lightweight, no-dependency Node.js library sending a final error via POST to an absolute url.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Warning: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slassen/lastly.git"
+  },
+  "keywords": [
+    "error handling",
+    "error",
+    "handling",
+    "node.js",
+    "node",
+    "final",
+    "last",
+    "post",
+    "webhook"
+  ],
+  "author": "Scott Lassen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slassen/lastly/issues"
+  },
+  "homepage": "https://github.com/slassen/lastly#readme"
+}
